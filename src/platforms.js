@@ -10,7 +10,7 @@ const PLATFORMS = [
   { id: 'whatsapp', name: 'WhatsApp', icon: 'bi-whatsapp', color: '#25D366', inputType: 'tel', placeholder: '+1234567890' },
   { id: 'pinterest', name: 'Pinterest', icon: 'bi-pinterest', color: '#E60023', placeholder: 'https://pinterest.com/yourprofile' },
   { id: 'behance', name: 'Behance', icon: 'bi-behance', color: '#1769FF', placeholder: 'https://behance.net/yourprofile' },
-  { id: 'website', name: 'Website', icon: 'bi-globe2', color: '#6c63ff', placeholder: 'https://yourwebsite.com' },
+  { id: 'website', name: 'Website', icon: 'bi-globe2', color: '#6c63ff', inputType: 'text', placeholder: 'www.yourwebsite.com' },
 ];
 
 export default PLATFORMS;

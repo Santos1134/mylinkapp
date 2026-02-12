@@ -48,6 +48,8 @@ function HomePage() {
       if (id === 'whatsapp') {
         const digits = url.replace(/[^\d]/g, '');
         url = `https://wa.me/${digits}`;
+      } else if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = `https://${url}`;
       }
       return { id, name: platform.name, icon: platform.icon, color: platform.color, url };
     });
