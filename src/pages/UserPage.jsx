@@ -1,13 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
+import supabase from '../supabase';
 
 function UserPage() {
   const { username } = useParams();
   const location = useLocation();
-  const { links } = location.state || { links: [] };
+  const stateLinks = location.state?.links;
+
+  const [links, setLinks] = useState(stateLinks || null);
+  const [loading, setLoading] = useState(!stateLinks);
   const [copied, setCopied] = useState(false);
 
-  const pageUrl = window.location.href;
+  useEffect(() => {
+    if (stateLinks) return;
+
+    const fetchLinks = async () => {
+      const { data, error } = await supabase
+        .from('links')
+        .select('links')
+        .eq('username', username.toLowerCase())
+        .single();
+
+      if (!error && data) {
+        setLinks(data.links);
+      }
+      setLoading(false);
+    };
+
+    fetchLinks();
+  }, [username, stateLinks]);
+
+  const pageUrl = window.location.origin + '/' + username;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(pageUrl).then(() => {
@@ -15,6 +38,14 @@ function UserPage() {
       setTimeout(() => setCopied(false), 2000);
     });
   };
+
+  if (loading) {
+    return (
+      <div className="empty-state">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   if (!links || links.length === 0) {
     return (

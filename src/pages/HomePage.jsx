@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PLATFORMS from '../platforms';
+import supabase from '../supabase';
 
 function HomePage() {
   const [username, setUsername] = useState('');
   const [selected, setSelected] = useState({});
   const [modal, setModal] = useState(null);
   const [modalValue, setModalValue] = useState('');
+  const [saving, setSaving] = useState(false);
   const navigate = useNavigate();
 
   const openModal = (platform) => {
@@ -32,7 +34,7 @@ function HomePage() {
     setModalValue('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const activeIds = Object.keys(selected);
     if (!username.trim() || activeIds.length === 0) {
@@ -50,6 +52,22 @@ function HomePage() {
       return { id, name: platform.name, icon: platform.icon, color: platform.color, url };
     });
 
+    setSaving(true);
+
+    // Save to Supabase (upsert so same username updates)
+    const { error } = await supabase
+      .from('links')
+      .upsert(
+        { username: username.trim().toLowerCase(), links },
+        { onConflict: 'username' }
+      );
+
+    if (error) {
+      alert('Failed to save. Please try again.');
+      setSaving(false);
+      return;
+    }
+
     // Notify via Web3Forms (fire and forget)
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
@@ -63,7 +81,8 @@ function HomePage() {
       }),
     }).catch(() => {});
 
-    navigate(`/${username.trim()}`, { state: { links } });
+    setSaving(false);
+    navigate(`/${username.trim().toLowerCase()}`, { state: { links } });
   };
 
   const activeCount = Object.keys(selected).length;
@@ -107,8 +126,8 @@ function HomePage() {
           <p className="active-count">{activeCount} link{activeCount > 1 ? 's' : ''} added</p>
         )}
 
-        <button type="submit" className="generate-btn">
-          Generate Link Page
+        <button type="submit" className="generate-btn" disabled={saving}>
+          {saving ? 'Saving...' : 'Generate Link Page'}
         </button>
       </form>
 
