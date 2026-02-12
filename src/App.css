@@ -1,0 +1,443 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+/* ---- Theme Variables ---- */
+.theme-dark {
+  --bg: #0d0d0d;
+  --text: #e0e0e0;
+  --text-heading: #ffffff;
+  --text-muted: #888;
+  --card-bg: #1a1a1a;
+  --card-border: #2a2a2a;
+  --input-focus-bg: #1e1e1e;
+  --input-focus-border: #555;
+  --placeholder: #555;
+  --toggle-hover-bg: #222;
+  --toggle-hover-border: #444;
+  --avatar-bg: #5b5fc7;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.theme-light {
+  --bg: #f5f5f7;
+  --text: #333;
+  --text-heading: #111;
+  --text-muted: #777;
+  --card-bg: #ffffff;
+  --card-border: #e0e0e0;
+  --input-focus-bg: #fff;
+  --input-focus-border: #aaa;
+  --placeholder: #aaa;
+  --toggle-hover-bg: #f0f0f0;
+  --toggle-hover-border: #ccc;
+  --avatar-bg: #5b5fc7;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ---- Theme Toggle Button ---- */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--card-border);
+  background-color: var(--card-bg);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+  z-index: 100;
+}
+
+.theme-toggle:hover {
+  border-color: var(--toggle-hover-border);
+  background-color: var(--toggle-hover-bg);
+}
+
+/* ---- Homepage Styles ---- */
+.home-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.home-container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--text-heading);
+}
+
+.home-container .subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  font-size: 0.95rem;
+}
+
+.username-input {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-heading);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 28px;
+  transition: border-color 0.2s;
+}
+
+.username-input:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+  background-color: var(--input-focus-bg);
+}
+
+.username-input::placeholder {
+  color: var(--placeholder);
+}
+
+/* ---- Platform Grid ---- */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.platform-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 8px;
+  background-color: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-muted);
+}
+
+.platform-toggle:hover {
+  border-color: var(--toggle-hover-border);
+  background-color: var(--toggle-hover-bg);
+}
+
+.platform-toggle.active {
+  border-color: var(--platform-color);
+  background-color: var(--card-bg);
+  color: var(--platform-color);
+}
+
+.platform-toggle i {
+  font-size: 1.6rem;
+}
+
+.platform-toggle span {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ---- Section Label ---- */
+.section-label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+/* ---- Active Count ---- */
+.active-count {
+  text-align: center;
+  color: #5b5fc7;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ---- Check Icon on Selected Platforms ---- */
+.check-icon {
+  font-size: 0.8rem !important;
+  color: var(--platform-color);
+}
+
+/* ---- Modal ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.modal-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.modal-input {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: var(--bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  margin-bottom: 20px;
+  transition: border-color 0.2s;
+}
+
+.modal-input:focus {
+  border-color: var(--input-focus-border);
+}
+
+.modal-input::placeholder {
+  color: var(--placeholder);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-save {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 10px;
+  background-color: #5b5fc7;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.modal-save:hover {
+  opacity: 0.9;
+}
+
+.modal-remove {
+  padding: 10px 20px;
+  border: 1px solid #e74c3c;
+  border-radius: 10px;
+  background: transparent;
+  color: #e74c3c;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.modal-remove:hover {
+  opacity: 0.8;
+}
+
+/* ---- Generate Button ---- */
+.generate-btn {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background-color: #5b5fc7;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  text-decoration: none;
+  text-align: center;
+}
+
+.generate-btn:hover {
+  opacity: 0.9;
+}
+
+.generate-btn:active {
+  transform: scale(0.98);
+}
+
+/* ---- User Page Styles ---- */
+.user-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.user-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: #5b5fc7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 2.2rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.user-container h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 32px;
+}
+
+.link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.link-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: opacity 0.2s, transform 0.1s;
+  border: none;
+}
+
+.link-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.link-btn i {
+  font-size: 1.3rem;
+}
+
+/* ---- Copy Link ---- */
+.copy-section {
+  margin-top: 32px;
+  padding: 16px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.copy-section input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.copy-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #5b5fc7;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.copy-btn:hover {
+  opacity: 0.9;
+}
+
+.copy-btn.copied {
+  background-color: #25D366;
+}
+
+/* ---- Empty State ---- */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.empty-state h1 {
+  color: var(--text-heading);
+  margin-bottom: 12px;
+}
+
+/* ---- Footer ---- */
+.app-footer {
+  text-align: center;
+  padding: 24px 20px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.app-footer a {
+  color: #5b5fc7;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .platform-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .platform-toggle {
+    padding: 12px 6px;
+  }
+
+  .platform-toggle i {
+    font-size: 1.4rem;
+  }
+}
