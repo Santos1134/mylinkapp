@@ -22,7 +22,7 @@ body {
   --placeholder: #555;
   --toggle-hover-bg: #222;
   --toggle-hover-border: #444;
-  --avatar-bg: #5b5fc7;
+  --avatar-bg: #1a3a6b;
   background-color: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -40,7 +40,7 @@ body {
   --placeholder: #aaa;
   --toggle-hover-bg: #f0f0f0;
   --toggle-hover-border: #ccc;
-  --avatar-bg: #5b5fc7;
+  --avatar-bg: #1a3a6b;
   background-color: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -168,7 +168,7 @@ body {
 /* ---- Active Count ---- */
 .active-count {
   text-align: center;
-  color: #5b5fc7;
+  color: #1a3a6b;
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 16px;
@@ -242,7 +242,7 @@ body {
   padding: 10px 24px;
   border: none;
   border-radius: 10px;
-  background-color: #5b5fc7;
+  background-color: #1a3a6b;
   color: #fff;
   font-size: 0.95rem;
   font-weight: 600;
@@ -276,7 +276,7 @@ body {
   padding: 16px;
   border: none;
   border-radius: 12px;
-  background-color: #5b5fc7;
+  background-color: #1a3a6b;
   color: #fff;
   font-size: 1.05rem;
   font-weight: 600;
@@ -306,7 +306,7 @@ body {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background-color: #5b5fc7;
+  background-color: #1a3a6b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -380,7 +380,7 @@ body {
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
-  background-color: #5b5fc7;
+  background-color: #1a3a6b;
   color: #fff;
   font-size: 0.85rem;
   font-weight: 600;
@@ -418,7 +418,7 @@ body {
 }
 
 .app-footer a {
-  color: #5b5fc7;
+  color: #1a3a6b;
   text-decoration: none;
   font-weight: 600;
 }
