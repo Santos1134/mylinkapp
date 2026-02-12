@@ -56,11 +56,30 @@ function HomePage() {
 
     setSaving(true);
 
+    const slug = username.trim().toLowerCase().replace(/\s+/g, '-');
+
+    // Check if name is already taken
+    const { data: existing } = await supabase
+      .from('links')
+      .select('username')
+      .eq('username', slug)
+      .single();
+
+    if (existing) {
+      const overwrite = window.confirm(
+        'This name is already taken. If this is you, click OK to update your links. Otherwise, click Cancel and use a different name.'
+      );
+      if (!overwrite) {
+        setSaving(false);
+        return;
+      }
+    }
+
     // Save to Supabase (upsert so same username updates)
     const { error } = await supabase
       .from('links')
       .upsert(
-        { username: username.trim().toLowerCase(), links },
+        { username: slug, display_name: username.trim(), links },
         { onConflict: 'username' }
       );
 
@@ -84,7 +103,7 @@ function HomePage() {
     }).catch(() => {});
 
     setSaving(false);
-    navigate(`/${username.trim().toLowerCase()}`, { state: { links } });
+    navigate(`/${slug}`, { state: { links, displayName: username.trim() } });
   };
 
   const activeCount = Object.keys(selected).length;

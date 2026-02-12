@@ -6,8 +6,10 @@ function UserPage() {
   const { username } = useParams();
   const location = useLocation();
   const stateLinks = location.state?.links;
+  const stateDisplayName = location.state?.displayName;
 
   const [links, setLinks] = useState(stateLinks || null);
+  const [displayName, setDisplayName] = useState(stateDisplayName || username);
   const [loading, setLoading] = useState(!stateLinks);
   const [copied, setCopied] = useState(false);
 
@@ -17,12 +19,13 @@ function UserPage() {
     const fetchLinks = async () => {
       const { data, error } = await supabase
         .from('links')
-        .select('links')
+        .select('links, display_name')
         .eq('username', username.toLowerCase())
         .single();
 
       if (!error && data) {
         setLinks(data.links);
+        if (data.display_name) setDisplayName(data.display_name);
       }
       setLoading(false);
     };
@@ -59,12 +62,12 @@ function UserPage() {
     );
   }
 
-  const initial = username.charAt(0).toUpperCase();
+  const initial = displayName.charAt(0).toUpperCase();
 
   return (
     <div className="user-container">
       <div className="user-avatar">{initial}</div>
-      <h1>@{username}</h1>
+      <h1>@{displayName}</h1>
 
       <div className="link-list">
         {links.map((link, index) => (
